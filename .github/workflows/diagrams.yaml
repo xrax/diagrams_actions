@@ -30,7 +30,14 @@ jobs:
         uses: docker://ghcr.io/racklet/render-drawio-action:v1.0.3
         id: render
         with:
-          formats: 'png'
+          formats: 'png,svg'
           sub-dirs: 'diagrams'
       - name: List diagrams
         run: 'ls -l ${{ steps.render.outputs.rendered-files }}'
+      - uses: EndBug/add-and-commit@v7
+        with:
+          author_name: github-actions
+          author_email: 41898282+github-actions[bot]@users.noreply.github.com
+          message: 'Automatically generation of .drawio images'
+          add: "${{ steps.render.outputs.rendered-files }}"
+        if: "${{ steps.render.outputs.rendered-files != ''}}"
