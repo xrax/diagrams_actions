@@ -30,7 +30,6 @@ jobs:
         uses: docker://ghcr.io/racklet/render-drawio-action:v1.0.3
         id: render
         with:
-          formats: 'png,svg'
           sub-dirs: 'diagrams'
       - name: List diagrams
         run: 'ls -l ${{ steps.render.outputs.rendered-files }}'
